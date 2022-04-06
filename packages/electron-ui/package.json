@@ -1,0 +1,22 @@
+{
+  "name": "@arp/electron-ui",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "electron main.js",
+    "build:window": "electron-packager ./ AmazonRecovertPassword --platform=win32 --arch=x64 --overwrite"
+  },
+  "author": "Nguyen Tri <nguyentri729.2018@gmail.com>",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-packager": "^15.4.0"
+  },
+  "dependencies": {
+    "electron": "^15.3.0",
+    "puppeteer-proxy": "^2.1.2"
+  }
+}

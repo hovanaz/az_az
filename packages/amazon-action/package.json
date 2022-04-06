@@ -1,0 +1,23 @@
+{
+  "name": "@arp/amazon-action",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nguyen Tri <nguyentri729.2018@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test"
+  },
+  "dependencies": {
+    "await-timeout": "^1.1.1",
+    "puppeteer": "^11.0.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0",
+    "puppeteer-proxy": "^2.1.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "user-agents": "^1.0.829"
+  }
+}

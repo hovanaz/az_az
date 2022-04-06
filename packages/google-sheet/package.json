@@ -1,0 +1,14 @@
+{
+  "name": "@arp/google-sheet",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nguyen Tri <nguyentri729.2018@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "google-spreadsheet": "^3.2.0"
+  }
+}

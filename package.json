@@ -1,0 +1,23 @@
+{
+    "name": "@arp/amazon-recovery-password",
+    "version": "1.0.0",
+    "description": "Amazon Recovery Password",
+    "main": "index.js",
+    "repository": "git@gitlab.com:k3t-software/amazon-recovery-password.git",
+    "author": "Nguyen Tri <nguyentri729.2018@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "start": "yarn workspace @arp/electron-ui run start",
+        "action:test": "yarn workspace @arp/amazon-action run test",
+        "build": "yarn workspace @arp/electron-ui run build:window"
+    },
+    "workspaces": [
+        "packages/outlook-opt",
+        "packages/electron-ui",
+        "packages/amazon-action",
+        "packages/captcha",
+        "packages/name-detection",
+        "packages/google-sheet"
+    ]
+}

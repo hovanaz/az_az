@@ -1,0 +1,17 @@
+{
+  "name": "@arp/name-detection",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nguyen Tri <nguyentri729.2018@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10"
+  }
+}

@@ -1,0 +1,216 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <title>Amazon Recovery Tool</title>
+</head>
+
+<body>
+
+<div style="margin: 50px 5%;">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header" style="display: flex;align-items: center; justify-content: space-between;">
+                    Settings
+                    <button class="btn btn-sm btn-info" id="saveSetting">Save</button>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3 input-group-sm">
+                        <span class="input-group-text">Thread: </span>
+                        <input type="number" class="form-control" id="thread" value="1" min="1" max="50">
+                    </div>
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <span class="input-group-text">Change IP after: </span>
+                        <input type="number" class="form-control" id="changeIPAfter" min="0" value="5">
+                    </div>
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <span class="input-group-text">911 Command: </span>
+                        <input type="text" class="form-control" id="changeIPCommand"
+                               value="C:\Users\Administrator\Desktop\3.35\ProxyTool\AutoProxyTool.exe -changeproxy/US">
+                    </div>
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <span class="input-group-text"><a href="" target="_blank" id="googleSheetLink">Google Sheet:</a> </span>
+                        <input type="text" class="form-control" id="googleSheet"
+                               value="1G3rwE335PJOr4SWo_gMqSnbhe5eZWBfhyRMT_X42iWE"><br />
+                    </div>
+
+                    <hr />
+
+                    <label style="font-weight: bold; margin-bottom: 5px;">Change IP with: </label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio1" name="changeIPWith" value="911"
+                               checked>911
+                        <label class="form-check-label" for="radio1"></label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio2" name="changeIPWith" value="proxy"
+                               disabled>Proxy
+                        <label class="form-check-label" for="radio2"></label>
+                    </div>
+
+                    <hr />
+
+                    <label style="font-weight: bold; margin-bottom: 5px;">Configs: </label>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hardlessMode" name="hardless_mode">
+                        <label class="form-check-label" for="hardlessMode">Headless Mode</label>
+                    </div>
+
+                    <div class="form-check" style="display: none;">
+                        <input class="form-check-input" type="checkbox" id="debugMode" name="debug" checked>
+                        <label class="form-check-label" for="debugMode">Debug</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="guessName" name="guess_name" checked>
+                        <label class="form-check-label" for="guessName">Guest Name</label>
+                    </div>
+
+                    <textarea placeholder="Google APIs" rows="5" class="form-control" id="googleAPIs"></textarea>
+                    <hr />
+                    <button class="btn-xs btn-primary" id="testChangeIp">Test Change IP</button>
+                    <button class="btn-xs btn-primary" id="testSheetSync">Test Sync Google Sheet</button>
+
+                    <hr />
+                    <div class="actions" style="width: 100%;">
+                        <button id="start" class="btn btn-primary btn-block" style="width: 100%;">Start</button>
+                        <button id="continue" class="btn btn-primary btn-block" style="width: 100%; display: none">
+                            Continue
+                        </button>
+
+                        <button id="end" class="btn btn-danger btn-block" style="width: 100%; display: none;">End
+                        </button>
+                        <button id="stop" class="btn btn-info btn-block" style="width: 100%; display: none;">Stop
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <style>
+            .result_count {
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .result_count h1 {
+                display: inline-block;
+            }
+
+        </style>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Input
+                </div>
+                <div class="card-body">
+                    <label for="account" style="margin-bottom: 5px;"><b>Accounts: </b></label>
+                    <textarea class="form-control" rows="5" id="account" name="text"
+                              placeholder="Email|Password|Answer_1|Answer_2|Answer_3"
+                              style="margin-top: 0px; margin-bottom: 0px; height: 339px;"></textarea>
+
+                    <div class="result_count">
+                        <h4 class="text-center text-primary">Total: <span id="total">0</span></h4>
+                        <h4 class="text-center text-info">Run: <span id="run">0</span></h4>
+                        <h4 class="text-center text-danger">Error: <span id="error">0</span></h4>
+                        <h4 class="text-center text-success">Success: <span id="success">0</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12" style="margin-top: 50px;">
+
+            <div class="card">
+                <div class="card-header">Output</div>
+                <div class="card-body">
+                    <button class="btn btn-xs btn-info btn-block" id="toggleTable">Toggle Table</button>
+                    <hr />
+                    <div class="table-responsive" id="table-container" style="display: block">
+                        <table class="table table-bordered" id='table-result'>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>Output</th>
+                                <th>Log</th>
+                            </tr>
+                            </thead>
+                            <tbody id="result">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn-success btn-block text-right" onclick="downloadXLSX()">Download xlsx</button>
+                    <button class="btn-danger btn-block text-right" onclick="clearTable()">Clear table</button>
+
+                </div>
+            </div>
+
+            <a style="text-align: right"><i>Version: </i> <b>1.3.4</b> <br /> <i>Date: </i> <b>24-11-2021</b></a>
+
+            <hr />
+            <label class="form-label">* Updated: </label>
+            <textarea class="form-control">- Update answer. (23-11-2021)
+- Fix wrong name
+            </textarea>
+        </div>
+    </div>
+
+    <style>
+        .log {
+            max-width: 100px;
+        }
+
+        .log ul {
+            max-height: 100px;
+            max-width: 200px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .output {
+            max-width: 100px;
+        }
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+    <!-- You can also require other files to run in this process -->
+    <script>
+        const downloadXLSX = (type, fn, dl) => {
+            var elt = document.getElementById('table-result');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: 'sheet1' });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+
+        };
+        const clearTable = () => {
+            document.getElementById('result').innerHTML = '';
+        };
+
+    </script>
+</body>
+
+</html>
